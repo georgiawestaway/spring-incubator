@@ -23,6 +23,7 @@
         <module>customer-service</module>
         <module>notification-service</module>
         <module>loyalty-service</module>
+        <module>booking-service</module>
     </modules>
 
     <properties>
@@ -127,6 +128,7 @@
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-devtools</artifactId>
+            <version>3.0.4</version>
             <scope>runtime</scope>
         </dependency>
     </dependencies>

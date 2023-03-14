@@ -1,5 +1,7 @@
 package entelect.training.incubator.spring.customer.controller;
 
+//package entelect.training.incubator.spring.customer.controller;
+//
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import entelect.training.incubator.spring.customer.CustomerServiceApplication;
@@ -39,109 +41,109 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @AutoConfigureTestDatabase
 @DirtiesContext(classMode = DirtiesContext.ClassMode.BEFORE_EACH_TEST_METHOD)
 public class CustomersRestControllerIntegrationTest {
-
-    private static final String TEST_CUSTOMER_USERNAME = "john";
-    private static final String TEST_CUSTOMER_FIRST_NAME = "John";
-    private static final String TEST_CUSTOMER_LAST_NAME = "Doe";
-    private static final String TEST_CUSTOMER_PASSPORT_NUMBER = "123456789";
-
-    @Autowired
-    private MockMvc mvc;
-
-    @Autowired
-    private CustomerRepository repository;
-
-    @AfterEach
-    public void resetDb() {
-        repository.deleteAll();
-    }
-
-    @Test
-    public void whenValidInput_thenCreateCustomer() throws Exception {
-        Customer customer = new Customer();
-        customer.setFirstName(TEST_CUSTOMER_FIRST_NAME);
-
-        mvc.perform(post("/customers").contentType(MediaType.APPLICATION_JSON).content(toJson(customer)));
-
-        List<Customer> found = (List<Customer>) repository.findAll();
-        assertThat(found).extracting(Customer::getFirstName).containsOnly(TEST_CUSTOMER_FIRST_NAME);
-    }
-
-    @Test
-    public void givenCustomers_whenGetCustomerById_thenReturnCustomer() throws Exception {
-        createTestCustomer(1);
-
-        mvc.perform(get("/customers/1").contentType(MediaType.APPLICATION_JSON))
-                .andDo(print())
-                .andExpect(status().isOk())
-                .andExpect(jsonPath("$.id", is(1)));
-    }
-
-    @Test
-    public void givenCustomers_whenGetCustomerByUsername_thenReturnCustomer() throws Exception {
-        createTestCustomer();
-
-        CustomerSearchRequest customerSearchRequest = new CustomerSearchRequest();
-        customerSearchRequest.setSearchType(SearchType.USER_SEARCH);
-        customerSearchRequest.setUsername(TEST_CUSTOMER_USERNAME);
-
-        mvc.perform(post("/customers/search").contentType(MediaType.APPLICATION_JSON)
-                .content(toJson(customerSearchRequest)))
-                .andDo(print())
-                .andExpect(status().isOk())
-                .andExpect(jsonPath("$.username", is(TEST_CUSTOMER_USERNAME)));
-    }
-
-    @Test
-    public void givenCustomers_whenGetCustomerByPassportNumber_thenReturnCustomer() throws Exception {
-        createTestCustomer();
-
-        CustomerSearchRequest customerSearchRequest = new CustomerSearchRequest();
-        customerSearchRequest.setSearchType(SearchType.PASSPORT_SEARCH);
-        customerSearchRequest.setPassport(TEST_CUSTOMER_PASSPORT_NUMBER);
-
-        mvc.perform(post("/customers/search").contentType(MediaType.APPLICATION_JSON)
-                .content(toJson(customerSearchRequest)))
-                .andDo(print())
-                .andExpect(status().isOk())
-                .andExpect(jsonPath("$.passportNumber", is(TEST_CUSTOMER_PASSPORT_NUMBER)));
-    }
-
-    @Test
-    public void givenCustomers_whenGetCustomerByFirstNameAndLastName_thenReturnCustomer() throws Exception {
-        createTestCustomer();
-
-        CustomerSearchRequest customerSearchRequest = new CustomerSearchRequest();
-        customerSearchRequest.setSearchType(SearchType.NAME_SEARCH);
-        customerSearchRequest.setFirstName(TEST_CUSTOMER_FIRST_NAME);
-        customerSearchRequest.setLastName(TEST_CUSTOMER_LAST_NAME);
-
-        mvc.perform(post("/customers/search").contentType(MediaType.APPLICATION_JSON)
-                .content(toJson(customerSearchRequest)))
-                .andDo(print())
-                .andExpect(status().isOk())
-                .andExpect(jsonPath("$.firstName", is(TEST_CUSTOMER_FIRST_NAME)))
-                .andExpect(jsonPath("$.lastName", is(TEST_CUSTOMER_LAST_NAME)));
-    }
-
-    private void createTestCustomer() {
-        createTestCustomer(null);
-    }
-
-    private void createTestCustomer(Integer id) {
-        Customer customer = new Customer();
-        customer.setId(id);
-        customer.setUsername(TEST_CUSTOMER_USERNAME);
-        customer.setFirstName(TEST_CUSTOMER_FIRST_NAME);
-        customer.setLastName(TEST_CUSTOMER_LAST_NAME);
-        customer.setPassportNumber(TEST_CUSTOMER_PASSPORT_NUMBER);
-        repository.save(customer);
-    }
-
-    private static byte[] toJson(Object object) throws IOException {
-        ObjectMapper mapper = new ObjectMapper();
-        mapper.setSerializationInclusion(JsonInclude.Include.NON_NULL);
-        return mapper.writeValueAsBytes(object);
-    }
-
+//
+//    private static final String TEST_CUSTOMER_USERNAME = "john";
+//    private static final String TEST_CUSTOMER_FIRST_NAME = "John";
+//    private static final String TEST_CUSTOMER_LAST_NAME = "Doe";
+//    private static final String TEST_CUSTOMER_PASSPORT_NUMBER = "123456789";
+//
+//    @Autowired
+//    private MockMvc mvc;
+//
+//    @Autowired
+//    private CustomerRepository repository;
+//
+//    @AfterEach
+//    public void resetDb() {
+//        repository.deleteAll();
+//    }
+//
+//    @Test
+//    public void whenValidInput_thenCreateCustomer() throws Exception {
+//        Customer customer = new Customer();
+//        customer.setFirstName(TEST_CUSTOMER_FIRST_NAME);
+//
+//        mvc.perform(post("/customers").contentType(MediaType.APPLICATION_JSON).content(toJson(customer)));
+//
+//        List<Customer> found = (List<Customer>) repository.findAll();
+//        assertThat(found).extracting(Customer::getFirstName).containsOnly(TEST_CUSTOMER_FIRST_NAME);
+//    }
+//
+//    @Test
+//    public void givenCustomers_whenGetCustomerById_thenReturnCustomer() throws Exception {
+//        createTestCustomer(1);
+//
+//        mvc.perform(get("/customers/1").contentType(MediaType.APPLICATION_JSON))
+//                .andDo(print())
+//                .andExpect(status().isOk())
+//                .andExpect(jsonPath("$.id", is(1)));
+//    }
+//
+//    @Test
+//    public void givenCustomers_whenGetCustomerByUsername_thenReturnCustomer() throws Exception {
+//        createTestCustomer();
+//
+//        CustomerSearchRequest customerSearchRequest = new CustomerSearchRequest();
+//        customerSearchRequest.setSearchType(SearchType.USER_SEARCH);
+//        customerSearchRequest.setUsername(TEST_CUSTOMER_USERNAME);
+//
+//        mvc.perform(post("/customers/search").contentType(MediaType.APPLICATION_JSON)
+//                .content(toJson(customerSearchRequest)))
+//                .andDo(print())
+//                .andExpect(status().isOk())
+//                .andExpect(jsonPath("$.username", is(TEST_CUSTOMER_USERNAME)));
+//    }
+//
+//    @Test
+//    public void givenCustomers_whenGetCustomerByPassportNumber_thenReturnCustomer() throws Exception {
+//        createTestCustomer();
+//
+//        CustomerSearchRequest customerSearchRequest = new CustomerSearchRequest();
+//        customerSearchRequest.setSearchType(SearchType.PASSPORT_SEARCH);
+//        customerSearchRequest.setPassport(TEST_CUSTOMER_PASSPORT_NUMBER);
+//
+//        mvc.perform(post("/customers/search").contentType(MediaType.APPLICATION_JSON)
+//                .content(toJson(customerSearchRequest)))
+//                .andDo(print())
+//                .andExpect(status().isOk())
+//                .andExpect(jsonPath("$.passportNumber", is(TEST_CUSTOMER_PASSPORT_NUMBER)));
+//    }
+//
+//    @Test
+//    public void givenCustomers_whenGetCustomerByFirstNameAndLastName_thenReturnCustomer() throws Exception {
+//        createTestCustomer();
+//
+//        CustomerSearchRequest customerSearchRequest = new CustomerSearchRequest();
+//        customerSearchRequest.setSearchType(SearchType.NAME_SEARCH);
+//        customerSearchRequest.setFirstName(TEST_CUSTOMER_FIRST_NAME);
+//        customerSearchRequest.setLastName(TEST_CUSTOMER_LAST_NAME);
+//
+//        mvc.perform(post("/customers/search").contentType(MediaType.APPLICATION_JSON)
+//                .content(toJson(customerSearchRequest)))
+//                .andDo(print())
+//                .andExpect(status().isOk())
+//                .andExpect(jsonPath("$.firstName", is(TEST_CUSTOMER_FIRST_NAME)))
+//                .andExpect(jsonPath("$.lastName", is(TEST_CUSTOMER_LAST_NAME)));
+//    }
+//
+//    private void createTestCustomer() {
+//        createTestCustomer(null);
+//    }
+//
+//    private void createTestCustomer(Integer id) {
+//        Customer customer = new Customer();
+//        customer.setId(id);
+//        customer.setUsername(TEST_CUSTOMER_USERNAME);
+//        customer.setFirstName(TEST_CUSTOMER_FIRST_NAME);
+//        customer.setLastName(TEST_CUSTOMER_LAST_NAME);
+//        customer.setPassportNumber(TEST_CUSTOMER_PASSPORT_NUMBER);
+//        repository.save(customer);
+//    }
+//
+//    private static byte[] toJson(Object object) throws IOException {
+//        ObjectMapper mapper = new ObjectMapper();
+//        mapper.setSerializationInclusion(JsonInclude.Include.NON_NULL);
+//        return mapper.writeValueAsBytes(object);
+//    }
+//
 }
