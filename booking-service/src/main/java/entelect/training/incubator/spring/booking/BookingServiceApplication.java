@@ -1,4 +1,4 @@
-package entelect.training.incubator;
+package entelect.training.incubator.spring.booking;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

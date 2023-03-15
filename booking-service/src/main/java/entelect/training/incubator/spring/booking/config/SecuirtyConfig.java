@@ -1,4 +1,4 @@
-package entelect.training.incubator.config;
+package entelect.training.incubator.spring.booking.config;
 
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;

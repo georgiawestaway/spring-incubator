@@ -1,7 +1,7 @@
-package entelect.training.incubator.controller;
+package entelect.training.incubator.spring.booking.controller;
 
-import entelect.training.incubator.model.Booking;
-import entelect.training.incubator.service.BookingsService;
+import entelect.training.incubator.spring.booking.model.Booking;
+import entelect.training.incubator.spring.booking.service.BookingsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -28,14 +28,14 @@ public class BookingsController {
 
         // Check if customer exists
         ResponseEntity<?> customerResponse = restTemplate.getForEntity(
-                "http://localhost:8081/customers/" + booking.getCustomerId(), Object.class);
+                "http://localhost:8202/customers/" + booking.getCustomerId(), Object.class);
         if (customerResponse.getStatusCode() == HttpStatus.NOT_FOUND) {
             return ResponseEntity.notFound().build();
         }
 
         // Check if flight exists
         ResponseEntity<?> flightResponse = restTemplate.getForEntity(
-                "http://localhost:8082/flights/" + booking.getFlightId(), Object.class);
+                "http://localhost:8202/flights/" + booking.getFlightId(), Object.class);
         if (flightResponse.getStatusCode() == HttpStatus.NOT_FOUND) {
             return ResponseEntity.notFound().build();
         }

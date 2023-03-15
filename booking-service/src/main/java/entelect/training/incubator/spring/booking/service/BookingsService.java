@@ -1,7 +1,7 @@
-package entelect.training.incubator.service;
+package entelect.training.incubator.spring.booking.service;
 
-import entelect.training.incubator.model.Booking;
-import entelect.training.incubator.repository.BookingsRepository;
+import entelect.training.incubator.spring.booking.model.Booking;
+import entelect.training.incubator.spring.booking.repository.BookingsRepository;
 import org.springframework.stereotype.Service;
 
 @Service
